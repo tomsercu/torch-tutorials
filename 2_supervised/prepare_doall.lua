@@ -32,9 +32,9 @@ cmd:text('Options:')
 cmd:option('-seed', 1, 'fixed input seed for repeatable experiments')
 cmd:option('-threads', 2, 'number of threads')
 -- data:
-cmd:option('-size', 'full', 'how many samples do we load: small | full | extra')
+cmd:option('-size', 'small', 'how many samples do we load: small | full | extra')
 -- model:
-cmd:option('-model', 'convnet', 'type of model to construct: linear | mlp | convnet')
+cmd:option('-model', 'linear', 'type of model to construct: linear | mlp | convnet')
 -- loss:
 cmd:option('-loss', 'nll', 'type of loss function to minimize: nll | mse | margin')
 -- training:
@@ -75,7 +75,7 @@ dofile '5_test.lua'
 ----------------------------------------------------------------------
 print '==> training!'
 
-while true do
-   train()
-   test()
-end
+--while true do
+   --train()
+   --test()
+--end
