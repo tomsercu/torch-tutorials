@@ -1,0 +1,29 @@
+Add loss and energy function    
+Train   
+t = 1   avLoss:  4.6258290948274    / error=0.8915  
+t = 2   avLoss:  5.5810339569415    / error=0.8682  
+t = 3   avLoss:  5.3743151774474    / error=0.7417  
+t = 4   avLoss:  4.4159449985587    / error=0.6871  
+t = 5   avLoss:  3.5152117772017    / error=0.6412  
+t = 6   avLoss:  3.1748206293277    / error=0.594   
+t = 7   avLoss:  2.6132013193727    / error=0.4352  
+t = 8   avLoss:  2.2488559788792    / error=0.4762  
+t = 9   avLoss:  1.922811486739    / error=0.3905   
+t = 10   avLoss:  1.7123680478344    / error=0.4161 
+t = 11   avLoss:  1.4951574968725    / error=0.3028 
+t = 12   avLoss:  1.3505507241617    / error=0.2992 
+t = 13   avLoss:  1.225643463337    / error=0.2822  
+t = 14   avLoss:  1.1143471816569    / error=0.298  
+t = 15   avLoss:  1.0268506456268    / error=0.251  
+t = 16   avLoss:  0.89517022119621    / error=0.2183    
+t = 17   avLoss:  0.75542129898215    / error=0.181 
+t = 18   avLoss:  0.67301771072594    / error=0.1652    
+t = 19   avLoss:  0.64637637691611    / error=0.1542    
+t = 20   avLoss:  0.61255500756136    / error=0.1535    
+t = 21   avLoss:  0.52572845660588    / error=0.1792    
+t = 22   avLoss:  0.51514098964489    / error=0.1134    
+t = 23   avLoss:  0.42429126669202    / error=0.1511    
+t = 24   avLoss:  0.3686287863368    / error=0.0923 
+t = 25   avLoss:  0.31083584158136    / error=0.0685    
+t = 26   avLoss:  0.28895261814332    / error=0.0609    
+
