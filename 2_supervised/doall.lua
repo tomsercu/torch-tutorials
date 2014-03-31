@@ -20,7 +20,7 @@
 ----------------------------------------------------------------------
 require 'nn'
 require 'torch'
-gfx = require 'gfx.js'
+--gfx = require 'gfx.js'
 print '==> processing options'
 
 cmd = torch.CmdLine()

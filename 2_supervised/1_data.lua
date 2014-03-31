@@ -16,7 +16,7 @@
 
 require 'torch'   -- torch
 require 'image'   -- for color transforms
-require 'gfx.js'  -- to visualize the dataset
+--require 'gfx.js'  -- to visualize the dataset
 require 'nn'      -- provides a normalization operator
 
 ----------------------------------------------------------------------
@@ -29,7 +29,7 @@ if not opt then
    cmd:text()
    cmd:text('Options:')
    cmd:option('-size', 'small', 'how many samples do we load: small | full | extra')
-   cmd:option('-visualize', true, 'visualize input data and weights during training')
+   cmd:option('-visualize', false, 'visualize input data and weights during training')
    cmd:text()
    opt = cmd:parse(arg or {})
 end

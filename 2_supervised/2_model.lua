@@ -15,7 +15,7 @@
 
 require 'torch'   -- torch
 require 'image'   -- for image transforms
-require 'gfx.js'  -- to visualize the dataset
+--require 'gfx.js'  -- to visualize the dataset
 require 'nn'      -- provides all sorts of trainable modules/layers
 
 ----------------------------------------------------------------------
