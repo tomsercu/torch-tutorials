@@ -1,6 +1,6 @@
 require 'nn'
 require 'torch'
-gfx = require 'gfx.js'
+--gfx = require 'gfx.js'
 require 'image'
 require 'gnuplot'
 
@@ -54,12 +54,12 @@ nin = 3*32*32
 kernel = image.gaussian1D(7)
 model = nn.Sequential()
 --model:add(nn.Reshape(nin))
-model:add(nn.SpatialConvolution(3,32,5,5))
+model:add(nn.SpatialConvolutionMM(3,32,5,5))
 model:add(nn.Threshold(0,0))
 model:add(nn.SpatialLPPooling(32,2,2,2,2,2))
 model:add(nn.SpatialSubtractiveNormalization(32,kernel))
 -- layer 2
-model:add(nn.SpatialConvolution(32,32,5,5))
+model:add(nn.SpatialConvolutionMM(32,32,5,5))
 model:add(nn.Threshold(0,0))
 model:add(nn.SpatialLPPooling(32,2,2,2,2,2))
 model:add(nn.SpatialSubtractiveNormalization(32,kernel))

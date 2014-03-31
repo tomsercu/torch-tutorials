@@ -1,6 +1,6 @@
 require 'nn'
 require 'torch'
-gfx = require 'gfx.js'
+--gfx = require 'gfx.js'
 require 'image'
 require 'gnuplot'
 
@@ -36,18 +36,18 @@ end
 -- Todo fix this to better normalization
 
 print ('Spatial contrastive normalization on all channels')
---scn_kernel = image.gaussian1D(13)
---normalizer = nn.SpatialContrastiveNormalization(1, scn_kernel, 1):float()
---for i = 1, tr.size do
-    --for j = 1,3 do
-        --tr.X[{i,{j}}] = normalizer:forward(tr.X[{i,{j}}])
-    --end
---end
---for i = 1, te.size do 
-    --for j = 1,3 do
-        --te.X[{i,{j}}] = normalizer:forward(te.X[{i,{j}}])
-    --end
---end
+scn_kernel = image.gaussian1D(13)
+normalizer = nn.SpatialContrastiveNormalization(1, scn_kernel, 1):float()
+for i = 1, tr.size do
+    for j = 1,3 do
+        tr.X[{i,{j}}] = normalizer:forward(tr.X[{i,{j}}])
+    end
+end
+for i = 1, te.size do 
+    for j = 1,3 do
+        te.X[{i,{j}}] = normalizer:forward(te.X[{i,{j}}])
+    end
+end
 
 --print ('Define convnet')
 print ('Define Logistic Regression')
@@ -68,6 +68,7 @@ lr = 0.01
 decay = 0.2
 losses = {}
 err = {}
+Terr = {}
 for t = 1,60 do
     loss = 0
     alpha =  lr / (1 + decay * t)
@@ -81,11 +82,17 @@ for t = 1,60 do
         model:updateParameters(alpha)
     end
     losses[#losses+1] = loss/tr.size
+    -- train error
     probs = model:forward(tr.X:double())
     _, ix = torch.max(probs, 2)
     corr = torch.eq(tr.Y, ix:double()):sum()
     err[#err+1] = 1 - corr / tr.size
-    print ('t = ' .. t .. '   avLoss:  ' .. losses[#losses] .. '    / error=' .. err[#err])
+    -- test error
+    probs = model:forward(te.X:double())
+    _, ix = torch.max(probs, 2)
+    corr = torch.eq(te.Y, ix:double()):sum()
+    Terr[#Terr+1] = 1 - corr / te.size
+    print ('epoch ' .. t .. '   avLoss:  ' .. losses[#losses] .. '    / train error=' .. err[#err] .. ' / test error=' .. Terr[#Terr])
 end
 
 z = torch.Tensor(losses)
