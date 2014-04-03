@@ -50,7 +50,7 @@ for i = 1, te.size do
 end
 
 --print ('Define convnet')
-print ('Define Logistic Regression')
+print ('Define MLP')
 nin = 3*32*32
 model = nn.Sequential()
 model:add(nn.Reshape(nin))
@@ -65,14 +65,16 @@ crit = nn.ClassNLLCriterion()
 
 print  ('Train')
 lr = 0.01
-decay = 0.2
+decay = 0.01
 losses = {}
 err = {}
 Terr = {}
 for t = 1,60 do
     loss = 0
     alpha =  lr / (1 + decay * t)
+    printper = tr.size/100
     for i = 1, tr.size do
+        if i % printper == 0 then io.write('.') end
         input = tr.X[{i}]:double()
         mo = model:forward(input)
         loss = loss + crit:forward(mo,tr.Y[i])
@@ -81,20 +83,31 @@ for t = 1,60 do
         model:backward(input, go)
         model:updateParameters(alpha)
     end
+    print('')
     losses[#losses+1] = loss/tr.size
     -- train error
-    probs = model:forward(tr.X:double())
-    _, ix = torch.max(probs, 2)
-    corr = torch.eq(tr.Y, ix:double()):sum()
+    corr = 0
+    for i = 1, tr.size do
+        probs = model:forward(tr.X[i]:double())
+        _, ix = torch.max(probs, 1)
+        if ix[1] == tr.Y[i] then
+            corr = corr + 1
+        end
+    end
     err[#err+1] = 1 - corr / tr.size
     -- test error
-    probs = model:forward(te.X:double())
-    _, ix = torch.max(probs, 2)
-    corr = torch.eq(te.Y, ix:double()):sum()
+    corr = 0
+    for i = 1, te.size do
+        probs = model:forward(te.X[i]:double())
+        _, ix = torch.max(probs, 1)
+        if ix[1] == te.Y[i] then
+            corr = corr + 1
+        end
+    end
     Terr[#Terr+1] = 1 - corr / te.size
     print ('epoch ' .. t .. '   avLoss:  ' .. losses[#losses] .. '    / train error=' .. err[#err] .. ' / test error=' .. Terr[#Terr])
 end
 
 z = torch.Tensor(losses)
 z:div(tr.size)
-gnuplot.plot({'Average loss', z, '+-'})
+--gnuplot.plot({'Average loss', z, '+-'})
