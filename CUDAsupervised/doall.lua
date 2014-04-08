@@ -47,7 +47,7 @@ cmd:option('-weightDecay', 0, 'weight decay (SGD only)')
 cmd:option('-momentum', 0, 'momentum (SGD only)')
 cmd:option('-t0', 1, 'start averaging at t0 (ASGD only), in nb of epochs')
 cmd:option('-maxIter', 2, 'maximum nb of iterations for CG and LBFGS')
-cmd:option('-type', 'double', 'type: double | float | cuda')
+cmd:option('-type', 'cuda', 'type: double | float | cuda')
 cmd:text()
 opt = cmd:parse(arg or {})
 
